@@ -1,20 +1,43 @@
 import React from "react";
 import TaskItem from "../TaskItem/TaskItem";
-import Task from "../../models/Task";
-import { Table } from "./styles";
-
-const tasks: Task[] = [
-  { title: "Task 1", description: "desc" },
-  { title: "Task 2", description: "desc" },
-  { title: "Task 3", description: "desc" },
-];
+import { Table, ButtonContainer, TaskList } from "./styles";
+import CustomButton from "../CustomButton/CustomButton";
+import useTasks from "../../hooks/useTasks";
 
 const TaskTable: React.FC = () => {
+  const { tasks, handleDeleteTask, handleUpdateTask, handleAddTask, handleRefreshTasks } =
+    useTasks();
+
+  const onAddTask = async () => {
+    const title = prompt("Enter title");
+    const description = prompt("Enter description");
+    if (title) {
+      await handleAddTask(title, description || "");
+    }
+  };
+
+  const onRefresh = async () => {
+    await handleRefreshTasks();
+  };
+
   return (
     <Table>
-      {tasks.map((task, index) => (
-        <TaskItem key={index} title={task.title} description={task.description} />
-      ))}
+      <ButtonContainer>
+        <CustomButton onClick={onRefresh} text="R" color="blue" />
+        <CustomButton onClick={onAddTask} text="+" color="green" />
+      </ButtonContainer>
+      <TaskList>
+        {tasks.map(task => (
+          <TaskItem
+            key={task.id}
+            id={task.id}
+            title={task.title}
+            description={task.description || ""}
+            onDelete={handleDeleteTask}
+            onEdit={handleUpdateTask}
+          />
+        ))}
+      </TaskList>
     </Table>
   );
 };
