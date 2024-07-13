@@ -47,8 +47,8 @@ const TaskItem: React.FC<TaskItemProps> = ({ id, title, description, onDelete, o
           {isOpen && <Description>{description}</Description>}
         </div>
         <ButtonContainer>
-          <CustomButton onClick={handleEditClick} color="blue" text="E" />
-          <CustomButton onClick={handleDeleteClick} color="red" text="D" />
+          <CustomButton onClick={handleEditClick} color="blue" icon="edit" />
+          <CustomButton onClick={handleDeleteClick} color="red" icon="trash" />
         </ButtonContainer>
       </TaskItemDiv>
       {isDeleteModalOpen && (

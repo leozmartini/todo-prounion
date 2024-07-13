@@ -31,8 +31,8 @@ const TaskTable: React.FC = () => {
     <>
       <Table>
         <ButtonContainer>
-          <CustomButton onClick={onRefresh} text="R" color="blue" />
-          <CustomButton onClick={onAddTask} text="+" color="green" />
+          <CustomButton onClick={onRefresh} icon="reload" color="blue" />
+          <CustomButton onClick={onAddTask} icon="plus" color="green" />
         </ButtonContainer>
         <TaskList>
           {tasks.map(task => (
