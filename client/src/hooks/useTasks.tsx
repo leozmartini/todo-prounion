@@ -18,8 +18,8 @@ const useTasks = () => {
     try {
       const newTask = await addTask(title, description || "");
       setTasks(prevTasks => [
-        { id: newTask.id, title: newTask.title, description: newTask.description },
         ...prevTasks,
+        { id: newTask.id, title: newTask.title, description: newTask.description },
       ]);
     } catch (error) {
       console.log("handleAddTask error", error);
