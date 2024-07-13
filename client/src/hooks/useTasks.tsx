@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Task from "../models/Task";
-import { getAllTasks, deleteTask, updateTask } from "../services/taskApi";
+import { getAllTasks, deleteTask, updateTask, addTask } from "../services/taskApi";
 
 const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -14,12 +14,24 @@ const useTasks = () => {
     }
   };
 
+  const handleAddTask = async (title: string, description?: string) => {
+    try {
+      const newTask = await addTask(title, description || "");
+      setTasks(prevTasks => [
+        { id: newTask.id, title: newTask.title, description: newTask.description },
+        ...prevTasks,
+      ]);
+    } catch (error) {
+      console.log("handleAddTask error", error);
+    }
+  };
+
   const handleDeleteTask = async (taskId: string) => {
     try {
       await deleteTask(taskId);
       setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
-    } catch (err) {
-      console.log("handleDeleteTask error", err);
+    } catch (error) {
+      console.log("handleDeleteTask error", error);
     }
   };
 
@@ -32,6 +44,14 @@ const useTasks = () => {
     }
   };
 
+  const handleRefreshTasks = async () => {
+    try {
+      fetchTasks();
+    } catch (error) {
+      console.log("refreshTasks error", error);
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -39,8 +59,10 @@ const useTasks = () => {
   return {
     tasks,
     fetchTasks,
+    handleAddTask,
     handleUpdateTask,
     handleDeleteTask,
+    handleRefreshTasks,
   };
 };
 

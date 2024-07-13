@@ -5,13 +5,26 @@ import CustomButton from "../CustomButton/CustomButton";
 import useTasks from "../../hooks/useTasks";
 
 const TaskTable: React.FC = () => {
-  const { tasks, handleDeleteTask, handleUpdateTask } = useTasks();
+  const { tasks, handleDeleteTask, handleUpdateTask, handleAddTask, handleRefreshTasks } =
+    useTasks();
+
+  const onAddTask = async () => {
+    const title = prompt("Enter title");
+    const description = prompt("Enter description");
+    if (title) {
+      await handleAddTask(title, description || "");
+    }
+  };
+
+  const onRefresh = async () => {
+    await handleRefreshTasks();
+  };
 
   return (
     <Table>
       <ButtonContainer>
-        <CustomButton onClick={() => alert("Refresh")} text="R" color="blue" />
-        <CustomButton onClick={() => alert("Add")} text="+" color="green" />
+        <CustomButton onClick={onRefresh} text="R" color="blue" />
+        <CustomButton onClick={onAddTask} text="+" color="green" />
       </ButtonContainer>
       <TaskList>
         {tasks.map(task => (

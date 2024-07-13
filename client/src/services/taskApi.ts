@@ -11,6 +11,15 @@ export const getAllTasks = async () => {
   }
 };
 
+export const addTask = async (title: string, description: string) => {
+  try {
+    const response = await api.post("/tasks", { title, description });
+    return response.data;
+  } catch (error) {
+    console.error("addTask error:", error);
+  }
+};
+
 export const updateTask = async (task: Task) => {
   try {
     const response = await api.put(`/tasks/${task.id}`, task);
