@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { TaskItemDiv, Title, Description } from "./styles";
+import { TaskItemDiv, Title, Description, ButtonContainer } from "./styles";
+import CustomButton from "../CustomButton/CustomButton";
 
 interface TaskItemProps {
   title: string;
@@ -15,6 +16,10 @@ const TaskItem: React.FC<TaskItemProps> = ({ title, description }) => {
         <Title>{title}</Title>
         {isOpen && <Description>{description}</Description>}
       </div>
+      <ButtonContainer>
+        <CustomButton onClick={() => alert("Edit")} color="blue" text="E" />
+        <CustomButton onClick={() => alert("Delete")} color="red" text="D" />
+      </ButtonContainer>
     </TaskItemDiv>
   );
 };

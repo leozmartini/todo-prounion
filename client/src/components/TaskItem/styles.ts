@@ -17,3 +17,8 @@ export const Description = styled.div`
   margin-top: 5px;
   padding-left: 10px;
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 0.3rem;
+`;
