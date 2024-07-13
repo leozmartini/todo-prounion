@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const Button = styled.button<{ buttonColor?: string }>`
-  background-color: ${({ buttonColor }) => buttonColor || "black"};
+export const Button = styled.button<{ buttoncolor?: string }>`
+  background-color: ${({ buttoncolor }) => buttoncolor || "black"};
   color: white;
   border: none;
   border-radius: 5px;
@@ -10,5 +10,5 @@ export const Button = styled.button<{ buttonColor?: string }>`
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  padding: 0.1rem 0.4rem;
+  padding: 0.25rem 0.5rem;
 `;
