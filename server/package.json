@@ -18,10 +18,12 @@
   "description": "",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "redis": "^4.6.15"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/redis": "^4.0.10",
     "nodemon": "^3.1.4"
   }
 }
