@@ -11,7 +11,7 @@ app.use(express.json());
 app.use("/tasks", taskRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Server running");
 });
 
 const redisClient = createClient({
@@ -20,16 +20,24 @@ const redisClient = createClient({
     port: Number(process.env.REDIS_PORT),
   },
 });
-redisClient.on("error", (err) => console.error("Redis Client Error", err));
+
+redisClient.on("error", err => {
+  console.error("Redis Client Error", err);
+  process.exit(1);
+});
+
 redisClient
   .connect()
   .then(() => {
     console.log("Redis connected");
-  })
-  .catch(console.error);
 
-app.listen(PORT, () => {
-  console.log(`Server is running ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server running: ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error("Failed to connect to Redis", err);
+    process.exit(1);
+  });
 
 export { redisClient };
