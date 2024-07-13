@@ -11,40 +11,47 @@ interface TaskItemProps extends Task {
 
 const TaskItem: React.FC<TaskItemProps> = ({ id, title, description, onDelete, onEdit }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const handleEdit = async () => {
-    const newTitle = prompt("Enter new title");
-    const newDescription = prompt("Enter new Description");
-    if (newTitle && newDescription) {
-      await onEdit({ id, title: newTitle, description: newDescription });
+  const handleEditClick = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditConfirm = async (input1Value?: string, input2Value?: string) => {
+    if (input1Value && input2Value) {
+      await onEdit({ id, title: input1Value, description: input2Value });
+      setIsEditModalOpen(false);
     }
   };
 
   const handleDeleteClick = () => {
-    setIsModalOpen(true);
+    setIsDeleteModalOpen(true);
   };
 
   const handleConfirmDelete = async () => {
     await onDelete(id);
-    setIsModalOpen(false);
+    setIsDeleteModalOpen(false);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
+    setIsDeleteModalOpen(false);
+    setIsEditModalOpen(false);
   };
 
   return (
-    <TaskItemDiv onClick={() => setIsOpen(!isOpen)}>
-      <div>
-        <Title>{title}</Title>
-        {isOpen && <Description>{description}</Description>}
-      </div>
-      <ButtonContainer>
-        <CustomButton onClick={handleEdit} color="blue" text="E" />
-        <CustomButton onClick={handleDeleteClick} color="red" text="D" />
-      </ButtonContainer>
-      {isModalOpen && (
+    <>
+      <TaskItemDiv onClick={() => setIsOpen(!isOpen)}>
+        <div>
+          <Title>{title}</Title>
+          {isOpen && <Description>{description}</Description>}
+        </div>
+        <ButtonContainer>
+          <CustomButton onClick={handleEditClick} color="blue" text="E" />
+          <CustomButton onClick={handleDeleteClick} color="red" text="D" />
+        </ButtonContainer>
+      </TaskItemDiv>
+      {isDeleteModalOpen && (
         <Modal
           title="Confirmação de Deleção"
           description="Tem certeza que deseja deletar esta tarefa?"
@@ -54,7 +61,19 @@ const TaskItem: React.FC<TaskItemProps> = ({ id, title, description, onDelete, o
           onConfirm={handleConfirmDelete}
         />
       )}
-    </TaskItemDiv>
+      {isEditModalOpen && (
+        <Modal
+          title="Editar Tarefa"
+          description="Edite o título e a descrição da tarefa:"
+          buttonText="Salvar"
+          buttonColor="blue"
+          input1="Novo Título"
+          input2="Nova Descrição"
+          onClose={handleCloseModal}
+          onConfirm={handleEditConfirm}
+        />
+      )}
+    </>
   );
 };
 
