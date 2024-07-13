@@ -17,6 +17,7 @@ export const addTask = async (title: string, description: string) => {
     return response.data;
   } catch (error) {
     console.error("addTask error:", error);
+    throw error;
   }
 };
 
@@ -26,6 +27,7 @@ export const updateTask = async (task: Task) => {
     return response.data;
   } catch (error) {
     console.error("updateTask error:", error);
+    throw error;
   }
 };
 
@@ -35,5 +37,6 @@ export const deleteTask = async (id: string) => {
     return response.data;
   } catch (error) {
     console.error("deleteTask error:", error);
+    throw error;
   }
 };

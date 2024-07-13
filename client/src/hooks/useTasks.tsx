@@ -9,8 +9,9 @@ const useTasks = () => {
     try {
       const fetchedTasks = await getAllTasks();
       setTasks(fetchedTasks);
-    } catch (err) {
-      console.log("fetchTasks error", err);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      alert(`fetchTasks error: ${err.message}`);
     }
   };
 
@@ -18,11 +19,12 @@ const useTasks = () => {
     try {
       const newTask = await addTask(title, description || "");
       setTasks(prevTasks => [
-        ...prevTasks,
         { id: newTask.id, title: newTask.title, description: newTask.description },
+        ...prevTasks,
       ]);
-    } catch (error) {
-      console.log("handleAddTask error", error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      alert(`handleAddTask error: ${err.message}`);
     }
   };
 
@@ -30,8 +32,9 @@ const useTasks = () => {
     try {
       await deleteTask(taskId);
       setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
-    } catch (error) {
-      console.log("handleDeleteTask error", error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      alert(`handleDeleteTask error: ${err.message}`);
     }
   };
 
@@ -39,8 +42,9 @@ const useTasks = () => {
     try {
       await updateTask({ id: task.id, title: task.title, description: task.description });
       fetchTasks();
-    } catch (error) {
-      console.log("handleUpdateTask error", error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      alert(`handleUpdateTask error: ${err.message}`);
     }
   };
 
