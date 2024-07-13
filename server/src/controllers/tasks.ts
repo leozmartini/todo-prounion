@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { redisClient } from "../index";
-import { Task } from "../models/tasks";
+import { Task } from "../models/Task";
 import { randomUUID } from "node:crypto";
 
 export const getTasks = async (req: Request, res: Response): Promise<void> => {
@@ -13,6 +13,7 @@ export const getTasks = async (req: Request, res: Response): Promise<void> => {
         tasks.push(JSON.parse(task));
       }
     }
+    tasks.sort((a, b) => a.timestamp - b.timestamp);
     res.status(200).json(tasks);
   } catch (error: any) {
     console.log(`getTasks error: ${error}`);
@@ -27,7 +28,7 @@ export const addTask = async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({ message: "Title is required" });
       return;
     }
-    const newTask: Task = { id: randomUUID(), title, description };
+    const newTask: Task = { id: randomUUID(), title, description, timestamp: Date.now() };
     await redisClient.set(newTask.id, JSON.stringify(newTask));
     res.status(201).json(newTask);
   } catch (error: any) {
@@ -44,12 +45,12 @@ export const updateTask = async (req: Request, res: Response): Promise<void> => 
       res.status(400).json({ message: "Title and ID are required" });
       return;
     }
-    const task = await redisClient.get(id);
+    let task = await redisClient.get(id);
     if (task === null) {
       res.status(404).json({ message: "Task not found" });
       return;
     }
-    const updatedTask: Task = { id, title, description };
+    const updatedTask: Task = { id, title, description, timestamp: JSON.parse(task).timestamp };
     await redisClient.set(id, JSON.stringify(updatedTask));
     res.status(200).json(updatedTask);
   } catch (error: any) {
