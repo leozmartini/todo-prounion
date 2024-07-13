@@ -20,7 +20,7 @@ const iconMap = {
 
 const CustomButton: React.FC<CustomButtonProps> = ({ onClick, color, text, icon }) => {
   return (
-    <Button onClick={onClick} buttonColor={color}>
+    <Button onClick={onClick} buttoncolor={color}>
       {icon && <FontAwesomeIcon icon={iconMap[icon]} />}
       {text}
     </Button>
