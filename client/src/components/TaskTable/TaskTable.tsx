@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import TaskItem from "../TaskItem/TaskItem";
-import Task from "../../models/Task";
 import { Table } from "./styles";
-import { getAllTasks } from "../../services/taskApi";
+import useTasks from "../../hooks/useTasks";
 
 const TaskTable: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      setTasks(await getAllTasks());
-    })();
-  }, []);
+  const { tasks, handleDeleteTask, handleUpdateTask } = useTasks();
 
   return (
     <Table>
-      {tasks.map((task, index) => (
-        <TaskItem key={index} title={task.title} description={task.description} />
+      {tasks.map(task => (
+        <TaskItem
+          key={task.id}
+          id={task.id}
+          title={task.title}
+          description={task.description || ""}
+          onDelete={handleDeleteTask}
+          onEdit={handleUpdateTask}
+        />
       ))}
     </Table>
   );
