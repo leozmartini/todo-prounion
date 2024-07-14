@@ -19,8 +19,8 @@ const useTasks = () => {
     try {
       const newTask = await addTask(title, description || "");
       setTasks(prevTasks => [
-        { id: newTask.id, title: newTask.title, description: newTask.description },
         ...prevTasks,
+        { id: newTask.id, title: newTask.title, description: newTask.description },
       ]);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
