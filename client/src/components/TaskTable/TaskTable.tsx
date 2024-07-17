@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import TaskItem from "../TaskItem/TaskItem";
-import { Table, ButtonContainer, TaskList } from "./styles";
+import { Table, ButtonContainer, TaskList, StyledH2 } from "./styles";
 import CustomButton from "../CustomButton/CustomButton";
 import useTasks from "../../hooks/useTasks";
 import Modal from "../Modal/Modal";
 
 const TaskTable: React.FC = () => {
-  const { tasks, handleDeleteTask, handleUpdateTask, handleAddTask, handleRefreshTasks } =
-    useTasks();
+  const { tasks, handleDeleteTask, handleUpdateTask, handleAddTask } = useTasks();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
@@ -23,15 +22,11 @@ const TaskTable: React.FC = () => {
     }
   };
 
-  const onRefresh = async () => {
-    await handleRefreshTasks();
-  };
-
   return (
     <>
       <Table>
         <ButtonContainer>
-          <CustomButton onClick={onRefresh} icon="reload" color="blue" />
+          <StyledH2>Suas tarefas</StyledH2>
           <CustomButton onClick={onAddTask} icon="plus" color="green" />
         </ButtonContainer>
         <TaskList>

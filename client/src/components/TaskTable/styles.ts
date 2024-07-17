@@ -19,3 +19,9 @@ export const ButtonContainer = styled.div`
 export const TaskList = styled.div`
   padding: 10px;
 `;
+
+export const StyledH2 = styled.h2`
+  font-size: 1.5rem;
+  margin: 0;
+  color: #333;
+`;
