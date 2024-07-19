@@ -56,7 +56,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ id, title, description, onDelete, o
           title="Confirmação de Deleção"
           description="Tem certeza que deseja deletar esta tarefa?"
           buttonText="Deletar"
-          buttonColor="red"
+          buttoncolor="red"
           onClose={handleCloseModal}
           onConfirm={handleConfirmDelete}
         />
@@ -66,7 +66,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ id, title, description, onDelete, o
           title="Editar Tarefa"
           description="Edite o título e a descrição da tarefa:"
           buttonText="Salvar"
-          buttonColor="blue"
+          buttoncolor="blue"
           input1="Novo Título"
           input2="Nova Descrição"
           onClose={handleCloseModal}

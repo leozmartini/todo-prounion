@@ -47,7 +47,7 @@ const TaskTable: React.FC = () => {
           title="Nova tarefa"
           description="Insira o título e a descrição da nova tarefa"
           buttonText="Adicionar"
-          buttonColor="green"
+          buttoncolor="green"
           input1="Título"
           input2="Descrição"
           onClose={onCloseModal}

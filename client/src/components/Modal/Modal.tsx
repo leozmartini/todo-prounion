@@ -15,7 +15,7 @@ interface ModalProps {
   title: string;
   description: string;
   buttonText?: string;
-  buttonColor?: string;
+  buttoncolor?: string;
   input1?: string;
   input2?: string;
   onClose: () => void;
@@ -26,7 +26,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   description,
   buttonText,
-  buttonColor,
+  buttoncolor,
   input1,
   input2,
   onClose,
@@ -67,7 +67,7 @@ const Modal: React.FC<ModalProps> = ({
             />
           )}
         </ModalBody>
-        <ModalButton buttonColor={buttonColor} onClick={handleConfirm}>
+        <ModalButton buttoncolor={buttoncolor} onClick={handleConfirm}>
           {buttonText || "OK"}
         </ModalButton>
       </ModalContainer>

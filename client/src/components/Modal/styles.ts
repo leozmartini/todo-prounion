@@ -70,10 +70,10 @@ export const ModalInput = styled.input`
   }
 `;
 
-export const ModalButton = styled.button<{ buttonColor?: string }>`
+export const ModalButton = styled.button<{ buttoncolor?: string }>`
   padding: 10px 20px;
   border: none;
-  background-color: ${({ buttonColor }) => buttonColor || "black"};
+  background-color: ${({ buttoncolor }) => buttoncolor || "black"};
   color: white;
   border-radius: 4px;
   cursor: pointer;
