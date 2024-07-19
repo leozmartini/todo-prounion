@@ -79,7 +79,7 @@ Response 200 com os blocos atualizados.
 
 ```
 
-## 🔗 Instalando localmente.
+## 🔗 Instalando localmente
 
 1. Iniciar container. (Necessário docker)
 
