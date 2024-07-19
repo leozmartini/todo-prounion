@@ -7,7 +7,6 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
-
 app.use("/tasks", taskRoutes);
 
 app.get("/", (req, res) => {
@@ -21,23 +20,24 @@ const redisClient = createClient({
   },
 });
 
-redisClient.on("error", err => {
-  console.error("Redis Client Error", err);
-  process.exit(1);
-});
-
-redisClient
-  .connect()
-  .then(() => {
+const connectToRedis = async () => {
+  try {
+    await redisClient.connect();
     console.log("Redis connected");
 
     app.listen(PORT, () => {
-      console.log(`Server running: ${PORT}`);
+      console.log(`Server running on port ${PORT}`);
     });
-  })
-  .catch(err => {
-    console.error("Failed to connect to Redis", err);
-    process.exit(1);
-  });
+  } catch (err) {
+    console.error("Falha ao conectar com banco de dados, tentando novamente...", err);
+    setTimeout(connectToRedis, 5000);
+  }
+};
+
+redisClient.on("error", err => {
+  console.error("Redis Client Error", err);
+});
+
+connectToRedis();
 
 export { redisClient };
