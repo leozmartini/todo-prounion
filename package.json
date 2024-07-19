@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "start cmd /k \"cd client && npm run dev\" && cd server && npm run dev",
+    "start:linux": "cd client && npm run dev & cd server && npm run dev",
     "install:client": "cd client && npm install",
     "install:server": "cd server && npm install",
     "install": "npm run install:client && npm run install:server"
