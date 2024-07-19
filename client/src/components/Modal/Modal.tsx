@@ -12,8 +12,8 @@ import {
 import CustomButton from "../CustomButton/CustomButton";
 
 interface ModalProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   buttonText?: string;
   buttoncolor?: string;
   input1?: string;
@@ -54,7 +54,6 @@ const Modal: React.FC<ModalProps> = ({
               placeholder={input1}
               value={input1Value}
               onChange={e => setInput1Value(e.target.value)}
-              required
             />
           )}
           {input2 && (
@@ -63,7 +62,6 @@ const Modal: React.FC<ModalProps> = ({
               placeholder={input2}
               value={input2Value}
               onChange={e => setInput2Value(e.target.value)}
-              required
             />
           )}
         </ModalBody>

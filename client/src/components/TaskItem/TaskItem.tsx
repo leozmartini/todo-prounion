@@ -19,9 +19,16 @@ const TaskItem: React.FC<TaskItemProps> = ({ id, title, description, onDelete, o
   };
 
   const handleEditConfirm = async (input1Value?: string, input2Value?: string) => {
-    if (input1Value && input2Value) {
-      await onEdit({ id, title: input1Value, description: input2Value });
+    if (input1Value || input2Value) {
+      await onEdit({
+        id,
+        title: input1Value ?? "",
+        description: input2Value ?? "",
+      });
       setIsEditModalOpen(false);
+    } else {
+      // Handle the case where neither input1Value nor input2Value is provided
+      console.log("Either title or description is required");
     }
   };
 
