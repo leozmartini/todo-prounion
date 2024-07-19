@@ -41,16 +41,33 @@ export const updateTask = async (req: Request, res: Response): Promise<void> => 
   try {
     const { id } = req.params;
     const { title, description } = req.body;
-    if (!title || !id) {
-      res.status(400).json({ message: "Title and ID are required" });
+
+    if (!id) {
+      res.status(400).json({ message: "ID is required" });
       return;
     }
+
+    if (!title && !description) {
+      res.status(400).json({ message: "title or description is required" });
+      return;
+    }
+
     let task = await redisClient.get(id);
+
     if (task === null) {
       res.status(404).json({ message: "Task not found" });
       return;
     }
-    const updatedTask: Task = { id, title, description, timestamp: JSON.parse(task).timestamp };
+
+    const parsedTask = JSON.parse(task);
+
+    const updatedTask: Task = {
+      id,
+      title: title || parsedTask.title,
+      description: description || parsedTask.description,
+      timestamp: parsedTask.timestamp,
+    };
+
     await redisClient.set(id, JSON.stringify(updatedTask));
     res.status(200).json(updatedTask);
   } catch (error: any) {
